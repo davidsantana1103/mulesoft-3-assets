@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<RollingFile name="debugLogFile"
+			fileName="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}logger2files-debugLogFile.log"
+			filePattern="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}archive${sys:file.separator}logger2files-debugLogFile-%d{yyyy-MM-dd-HH:mm:ss:SSS}.log.gz">
+			<PatternLayout pattern="%d [%t] %-5p %c - %m%n" />
+			<SizeBasedTriggeringPolicy size="50 MB" />
+			<Filters>
+				<ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL" />
+				<ThresholdFilter level="FATAL" onMatch="DENY" onMismatch="NEUTRAL" />
+			</Filters>
+		</RollingFile>
+		<RollingFile name="errorLogFile"
+			fileName="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}logger2files-errorLogFile.log"
+			filePattern="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}archive${sys:file.separator}logger2files-errorLogFile-%d{yyyy-MM-dd-HH:mm:ss:SSS}.log.gz">
+			<PatternLayout pattern="%d [%t] %-5p %c - %m%n" />
+			<SizeBasedTriggeringPolicy size="10 MB" />
+		</RollingFile>
+		<RollingFile name="confidentialFile"
+			fileName="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}logger2files-confidential.log"
+			filePattern="${sys:mule.home}${sys:file.separator}logs${sys:file.separator}archive${sys:file.separator}logger2files-confidential-%d{yyyy-MM-dd-HH:mm:ss:SSS}.log.gz">
+			<PatternLayout pattern="%d [%t] %-5p %c - %m%n" />
+			<SizeBasedTriggeringPolicy size="10 MB" />
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+
+		<!-- CXF is used heavily by Mule for web services -->
+		<AsyncLogger name="org.apache.cxf" level="WARN" >
+        <AppenderRef ref="errorLogFile" level="ERROR"/>
+        </AsyncLogger>
+
+		<!-- Apache Commons tend to make a lot of noise which can clutter the log -->
+		<AsyncLogger name="org.apache" level="WARN" >
+        <AppenderRef ref="errorLogFile" level="ERROR"/>
+        </AsyncLogger>
+
+		<!-- Reduce startup noise -->
+		<AsyncLogger name="org.springframework.beans.factory" level="WARN" >
+        <AppenderRef ref="errorLogFile" level="ERROR"/>
+        </AsyncLogger>
+
+		<!-- Mule classes -->
+		<AsyncLogger name="org.mule" level="INFO" >
+        <AppenderRef ref="errorLogFile" level="ERROR"/>
+        </AsyncLogger>
+		<AsyncLogger name="com.mulesoft" level="INFO" >
+        <AppenderRef ref="errorLogFile" level="ERROR"/>
+        </AsyncLogger>
+
+		<!-- Reduce DM verbosity -->
+		<AsyncLogger name="org.jetel" level="WARN" >
+        <AppenderRef ref="errorLogFile" level="ERROR"/>
+        </AsyncLogger>
+		<AsyncLogger name="Tracking" level="WARN" >
+        <AppenderRef ref="errorLogFile" level="ERROR"/>
+        </AsyncLogger>
+        
+        <AsyncLogger name="confidential" level="INFO" >
+        	<AppenderRef ref="confidentialFile" level="INFO"/>
+        </AsyncLogger>
+
+		<!-- Sending normal debug logs to debugLogFile -->
+<!--         <AsyncRoot level="debug"> -->
+<!--             <AppenderRef ref="debugLogFile"> -->
+<!--             	<MarkerFilter marker="confidential" onMatch="DENY" onMismatch="ACCEPT"/> -->
+<!--             </AppenderRef> -->
+<!--         </AsyncRoot> -->
+	</Loggers>
+
+</Configuration>
