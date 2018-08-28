@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="IWSMockService" targetNamespace="http://mock.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://mock.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://mock.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="getNonUpdatedItems" type="tns:getNonUpdatedItems"/>
+      <xs:element name="getNonUpdatedItemsResponse" type="tns:getNonUpdatedItemsResponse"/>
+      <xs:element name="setItemUpdated" type="tns:setItemUpdated"/>
+      <xs:element name="setItemUpdatedResponse" type="tns:setItemUpdatedResponse"/>
+      <xs:element name="setItemsUpdated" type="tns:setItemsUpdated"/>
+      <xs:element name="setItemsUpdatedResponse" type="tns:setItemsUpdatedResponse"/>
+      <xs:complexType name="setItemUpdated">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="setItemUpdatedResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="setItemsUpdated">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="arg0" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="setItemsUpdatedResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="getNonUpdatedItems">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="getNonUpdatedItemsResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getNonUpdatedItemsResponse">
+    <wsdl:part name="parameters" element="tns:getNonUpdatedItemsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setItemsUpdated">
+    <wsdl:part name="parameters" element="tns:setItemsUpdated">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setItemUpdatedResponse">
+    <wsdl:part name="parameters" element="tns:setItemUpdatedResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setItemUpdated">
+    <wsdl:part name="parameters" element="tns:setItemUpdated">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setItemsUpdatedResponse">
+    <wsdl:part name="parameters" element="tns:setItemsUpdatedResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getNonUpdatedItems">
+    <wsdl:part name="parameters" element="tns:getNonUpdatedItems">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="IWSMock">
+    <wsdl:operation name="setItemUpdated">
+      <wsdl:input name="setItemUpdated" message="tns:setItemUpdated">
+    </wsdl:input>
+      <wsdl:output name="setItemUpdatedResponse" message="tns:setItemUpdatedResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setItemsUpdated">
+      <wsdl:input name="setItemsUpdated" message="tns:setItemsUpdated">
+    </wsdl:input>
+      <wsdl:output name="setItemsUpdatedResponse" message="tns:setItemsUpdatedResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNonUpdatedItems">
+      <wsdl:input name="getNonUpdatedItems" message="tns:getNonUpdatedItems">
+    </wsdl:input>
+      <wsdl:output name="getNonUpdatedItemsResponse" message="tns:getNonUpdatedItemsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IWSMockServiceSoapBinding" type="tns:IWSMock">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="setItemUpdated">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="setItemUpdated">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setItemUpdatedResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setItemsUpdated">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="setItemsUpdated">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setItemsUpdatedResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNonUpdatedItems">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getNonUpdatedItems">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getNonUpdatedItemsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IWSMockService">
+    <wsdl:port name="IWSMockPort" binding="tns:IWSMockServiceSoapBinding">
+      <soap:address location="http://CAGMAW170605:8088/wsmock"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
